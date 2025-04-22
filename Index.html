@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive Page</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    #question, #confirmation, #lovePage {
+      display: none;
+    }
+    #lovePage {
+      font-size: 24px;
+      white-space: pre-wrap;
+      overflow: hidden;
+    }
+  </style>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+  <!-- Start Page -->
+  <div id="start" class="text-center">
+    <button id="startButton" class="bg-blue-500 text-white px-6 py-3 rounded-lg shadow-lg hover:bg-blue-600">
+      Click Here
+    </button>
+  </div>
+
+  <!-- Question Page -->
+  <div id="question" class="text-center">
+    <p class="text-lg font-semibold mb-4">Are you Sherine? If yes, confirm your identity.</p>
+    <input type="text" id="confirmationInput" placeholder="Type 'confirm' here"
+      class="border border-gray-300 rounded-lg px-4 py-2 mb-4">
+    <button id="confirmButton" class="bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg hover:bg-green-600">
+      Confirm
+    </button>
+  </div>
+
+  <!-- Love Page -->
+  <div id="lovePage" class="text-center text-red-500 font-bold"></div>
+
+  <script>
+    const startButton = document.getElementById('startButton');
+    const questionDiv = document.getElementById('question');
+    const confirmationInput = document.getElementById('confirmationInput');
+    const confirmButton = document.getElementById('confirmButton');
+    const lovePage = document.getElementById('lovePage');
+
+    startButton.addEventListener('click', () => {
+      document.getElementById('start').style.display = 'none';
+      questionDiv.style.display = 'block';
+    });
+
+    confirmButton.addEventListener('click', () => {
+      if (confirmationInput.value.toLowerCase() === 'confirm') {
+        questionDiv.style.display = 'none';
+        lovePage.style.display = 'block';
+        typeWriterEffect("I love you Sherine", lovePage);
+      } else {
+        alert('Please type "confirm" to proceed.');
+      }
+    });
+
+    function typeWriterEffect(text, element) {
+      let i = 0;
+      function type() {
+        if (i < text.length) {
+          element.innerHTML += text.charAt(i);
+          i++;
+          setTimeout(type, 100); // Adjust typing speed here
+        } else {
+          element.innerHTML += '\n'; // Add a new line after each sentence
+          i = 0; // Reset to start typing again
+          setTimeout(() => type(), 100); // Restart typing
+        }
+      }
+      type();
+    }
+  </script>
+</body>
+</html>
